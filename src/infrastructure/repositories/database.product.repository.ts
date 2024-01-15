@@ -60,14 +60,14 @@ export class ProductStorage implements ProductStoragePort {
         })
     }
 
-    async findById(id: string): Promise<Product> {
+    async findById(id: string): Promise<Product | null> {
         const product = await this.db.product.findUnique({
             where: {
                 id
             }
         })
 
-        if (!product) throw new Error('Product not found')
+        if (!product) return null
 
         return this.toEntity(product)
     }

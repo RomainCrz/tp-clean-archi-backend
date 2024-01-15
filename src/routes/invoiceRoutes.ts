@@ -3,11 +3,11 @@ import { createInvoice, deleteInvoice, getAllInvoices, getInvoiceById, getInvoic
 
 const router = express.Router();
 
+router.get('/', getAllInvoices);
 router.post('/create', createInvoice);
 router.post('/update', updateInvoice);
 router.delete('/:id', deleteInvoice);
 router.get('/:id', getInvoiceById);
 router.get('/number/:number', getInvoiceByNumber);
-router.get('/', getAllInvoices);
 
 export default router;

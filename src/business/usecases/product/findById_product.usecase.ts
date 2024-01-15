@@ -7,11 +7,12 @@ export class FindByIdProductUseCase extends ProductUseCase {
     constructor(productStoragePort: ProductStoragePort, logger: Logger) {
         super(productStoragePort, logger);
     }
-    async execute(id: string): Promise<Product> {
+    async execute(id: string): Promise<Product | null> {
         this.logger.info(`[FindByIdproductUseCase] Executing with args ${JSON.stringify(id)}`);
         const product = await this.productStoragePort.findById(id);
         if (!product) {
-            throw new Error(`product with id ${id} not found`);
+            this.logger.info(`[FindByIdproductUseCase] product not found`);
+            return null;
         }
         return product;
     }

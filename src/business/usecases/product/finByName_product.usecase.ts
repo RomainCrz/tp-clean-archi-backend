@@ -13,7 +13,8 @@ export class FindByNameProductUseCase extends ProductUseCase {
         this.logger.info(`[FindByNameproductUseCase] Executing with args ${JSON.stringify(name)}`);
         const products = await this.productStoragePort.findByName(name);
         if (!products) {
-            throw new Error(`product with name ${name} not found`);
+            this.logger.info(`[FindByNameproductUseCase] product not found`);
+            return [];
         }
         return products;
     }

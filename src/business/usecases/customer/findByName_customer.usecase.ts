@@ -13,7 +13,8 @@ export class FindByNameCustomerUseCase extends CustomerUseCase {
         this.logger.info(`[FindByNameCustomerUseCase] Executing with args ${JSON.stringify(name)}`);
         const customer = await this.customerStoragePort.findByName(name);
         if (!customer) {
-            throw new Error(`Customer with name ${name} not found`);
+            this.logger.info(`[FindByNameCustomerUseCase] Customer not found`);
+            return [];
         }
         return customer;
     }

@@ -68,14 +68,14 @@ export class CustomerStorage implements CustomerStoragePort {
         })
     }
 
-    async findById(id: string): Promise<Customer> {
+    async findById(id: string): Promise<Customer | null> {
         const customer = await this.db.customer.findUnique({
             where: {
                 id: id
             }
         })
 
-        if (!customer) throw new Error('Customer not found')
+        if (!customer) return null
 
         return this.toEntity(customer)
     }
@@ -87,7 +87,7 @@ export class CustomerStorage implements CustomerStoragePort {
             }
         })
 
-        if (!customer) throw new Error('Customer not found')
+        if (!customer) return []
 
         return customer.map(this.toEntity)
     }

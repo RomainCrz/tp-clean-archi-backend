@@ -134,7 +134,7 @@ export class InvoiceStorage implements InvoiceStoragePort {
         })
     }
 
-    async findById(id: string): Promise<Invoice> {
+    async findById(id: string): Promise<Invoice | null> {
         const invoice = await this.db.invoice.findUnique({
             where: {
                 id
@@ -145,12 +145,12 @@ export class InvoiceStorage implements InvoiceStoragePort {
             }
         })
 
-        if (!invoice) throw new Error('Invoice not found')
+        if (!invoice) return null
 
         return this.toEntity(invoice)
     }
 
-    async findByNumber(number: string): Promise<Invoice> {
+    async findByNumber(number: string): Promise<Invoice | null> {
         const invoice = await this.db.invoice.findUnique({
             where: {
                 invoiceNumber: number
@@ -161,7 +161,7 @@ export class InvoiceStorage implements InvoiceStoragePort {
             }
         })
 
-        if (!invoice) throw new Error('Invoice not found')
+        if (!invoice) return null 
 
         return this.toEntity(invoice)
     }

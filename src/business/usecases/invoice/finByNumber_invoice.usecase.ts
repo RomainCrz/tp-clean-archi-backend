@@ -9,11 +9,12 @@ export class FindByNumberInvoiceUseCase extends InvoiceUseCase {
         super(invoiceStoragePort, logger);
     }
 
-    async execute(number: string): Promise<Invoice> {
+    async execute(number: string): Promise<Invoice | null> {
         this.logger.info(`[FindByNameinvoiceUseCase] Executing with args ${JSON.stringify(number)}`);
         const invoice = await this.invoiceStoragePort.findByNumber(number);
         if (!invoice) {
-            throw new Error(`invoice with name ${number} not found`);
+            this.logger.info(`[FindByNameinvoiceUseCase] invoice not found`);
+            return null;
         }
         return invoice;
     }
