@@ -1,5 +1,6 @@
 import { CustomerStoragePort } from "@/business/ports/storage.port";
 import { CustomerUseCase } from "./customer.usecase";
+import { Customer } from "@/domain/entities";
 import { Logger } from "@/business/ports/logger.port";
 
 export class UpdateCustomerUseCase extends CustomerUseCase {
@@ -8,7 +9,7 @@ export class UpdateCustomerUseCase extends CustomerUseCase {
         super(customerStoragePort, logger)
     }
 
-    async execute(customer: any): Promise<any> {
+    async execute(customer: Customer): Promise<Customer> {
         const updatedCustomer = await this.customerStoragePort.update(customer)
 
         this.logger.info(`Customer ${updatedCustomer.name} updated`)

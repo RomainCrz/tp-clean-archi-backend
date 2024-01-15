@@ -6,7 +6,7 @@ export class DeleteCustomerUseCase extends CustomerUseCase {
         super(customerStoragePort, logger)
     }
 
-    async execute(id: any): Promise<any> {
+    async execute(id: string): Promise<boolean> {
         try {
             await this.customerStoragePort.delete(id)
 

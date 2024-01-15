@@ -21,7 +21,7 @@ export interface ProductStoragePort {
 
 export interface InvoiceStoragePort {
     create(invoice: Invoice): Promise<Invoice>
-    update(invoice: Invoice): Promise<void>
+    update(invoice: Invoice): Promise<Invoice>
     delete(id: string): Promise<void>
     findById(id: string): Promise<Invoice>
     findByNumber(number: string): Promise<Invoice>

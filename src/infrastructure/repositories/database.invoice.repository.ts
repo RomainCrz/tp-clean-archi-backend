@@ -88,11 +88,11 @@ export class InvoiceStorage implements InvoiceStoragePort {
         return this.toEntity(newInvoice)
     }
 
-    async update(invoice: Invoice): Promise<void> {
+    async update(invoice: Invoice): Promise<Invoice> {
         if (!invoice.customer.id) {
             throw new Error('Customer is required')
         }
-        await this.db.invoice.update({
+        const updatedInvoice = await this.db.invoice.update({
             where: {
                 id: invoice.id
             },
@@ -116,8 +116,14 @@ export class InvoiceStorage implements InvoiceStoragePort {
                         }
                     })
                 }
+            },
+            include: {
+                customer: true, 
+                products: true 
             }
         })   
+
+        return this.toEntity(updatedInvoice)
     }
 
     async delete(id: string): Promise<void> {
