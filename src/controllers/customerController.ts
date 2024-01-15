@@ -1,13 +1,19 @@
-import { Logger } from '@/business/ports/logger.port';
 import { CreateCustomerUseCase } from '@/business/usecases/customer/create_customer.usecase';
 import { UpdateCustomerUseCase } from '@/business/usecases/customer/update_customer.usecase';
-import { Customer } from '@/domain/entities';
+import { customerSchema, customerWithIdSchema } from '@/domain/entities';
 import { CustomerStorage } from '@/infrastructure/repositories';
 import { LoggerRepository } from '@/infrastructure/repositories/logger.repository';
 import { Request, Response } from 'express';
+import { validate } from '../../utils/validate';
 
 export async function createCustomer(request: Request, response: Response) {
-    const {customer} = request.body
+    
+    const customer = validate(customerSchema, request, response)
+
+    if (!customer) {
+        return
+    }
+
     const logger = new LoggerRepository()
     
     const customerStorage = new CustomerStorage()
@@ -19,7 +25,12 @@ export async function createCustomer(request: Request, response: Response) {
 }
 
 export async function updateCustomer(request: Request, response: Response) {
-    const {customer} = request.body
+    const customer = validate(customerWithIdSchema, request, response)
+
+    if (!customer) {
+        return
+    }
+
     const logger = new LoggerRepository()
 
     const customerStorage = new CustomerStorage()

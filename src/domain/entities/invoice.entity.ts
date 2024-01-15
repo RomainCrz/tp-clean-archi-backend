@@ -1,6 +1,21 @@
-import { Customer } from "./customer.entity"
-import { Product } from "./product.entity"
+import { z } from "zod"
+import { Customer, customerSchema } from './customer.entity';
+import { Product, productSchema } from "./product.entity"
 
+
+export const invoiceSchema = {
+    id: z.string().optional(),
+    invoiceNumber: z.string(),
+    invoiceDate: z.date(),
+    dueDate: z.date(),
+    status: z.enum(['draft', 'sent', 'paid', 'cancelled', 'overdue']),
+    totalAmount: z.number(),
+    totalTax: z.number(),
+    totalAmountWithTax: z.number(),
+    customer: customerSchema,
+    products: z.array(productSchema)
+
+}
 export interface InvoiceInterface {
     id?: string
     invoiceNumber: string
