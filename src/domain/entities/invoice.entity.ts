@@ -3,7 +3,7 @@ import { Customer, customerSchema } from './customer.entity';
 import { Product, productSchema } from "./product.entity"
 
 
-export const invoiceSchema = {
+export const invoiceSchema = z.object({
     id: z.string().optional(),
     invoiceNumber: z.string(),
     invoiceDate: z.date(),
@@ -15,7 +15,11 @@ export const invoiceSchema = {
     customer: customerSchema,
     products: z.array(productSchema)
 
-}
+})
+
+export const invoiceWithIdSchema = invoiceSchema.extend({
+    id: z.string()
+})
 export interface InvoiceInterface {
     id?: string
     invoiceNumber: string

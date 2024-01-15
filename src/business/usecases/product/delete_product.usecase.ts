@@ -1,6 +1,6 @@
 import { ProductUseCase } from "./product.usecase";
 
-export class DeleteproductUseCase extends ProductUseCase {
+export class DeleteProductUseCase extends ProductUseCase {
 
     constructor(productStoragePort: any, logger: any) {
         super(productStoragePort, logger)

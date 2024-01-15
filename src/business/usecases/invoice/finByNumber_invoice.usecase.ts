@@ -3,7 +3,7 @@ import { InvoiceStoragePort } from "@/business/ports/storage.port";
 import { InvoiceUseCase } from "./invoice.usecase";
 import { Invoice } from "@/domain/entities";
 
-export class FindByNameInvoiceUseCase extends InvoiceUseCase {
+export class FindByNumberInvoiceUseCase extends InvoiceUseCase {
 
     constructor(invoiceStoragePort: InvoiceStoragePort, logger: Logger) {
         super(invoiceStoragePort, logger);

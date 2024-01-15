@@ -9,6 +9,10 @@ export const productSchema = z.object({
     description: z.string()
 })
 
+export const productWithIdSchema = productSchema.extend({
+    id: z.string()
+})
+
 
 
 export interface ProductInterface {

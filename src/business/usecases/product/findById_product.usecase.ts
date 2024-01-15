@@ -3,7 +3,7 @@ import { ProductStoragePort } from "@/business/ports/storage.port";
 import { ProductUseCase } from "./product.usecase";
 import { Product } from "@/domain/entities";
 
-export class FindByIdproductUseCase extends ProductUseCase {
+export class FindByIdProductUseCase extends ProductUseCase {
     constructor(productStoragePort: ProductStoragePort, logger: Logger) {
         super(productStoragePort, logger);
     }
