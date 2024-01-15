@@ -26,6 +26,7 @@ export class Customer {
     zip: string;
 
     constructor(customer: CustomerInterface) {
+        console.log('customerinterface', customer)
         this.id = customer.id || undefined;
         this.name = customer.name;
         this.email = customer.email;

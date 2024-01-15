@@ -1,13 +1,11 @@
-import express from "express";
+import { Server } from "./application/api/server";
 
-const app = express();
-const port = 3000;
 
-app.get("/", (req, res) => {
-    console.log(req.body)
-    res.send("Hello World!");
-});
+const server = new Server();
+server.init();
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+if (process.env.NODE_ENV === 'production') {
+    server.launch(3000);
+}
+
+export const viteNodeApp = server.app;
