@@ -68,14 +68,8 @@ export class InvoiceStorage implements InvoiceStoragePort {
                 totalAmountWithTax: invoice.totalAmountWithTax,
                 customerId: invoice.customer.id,
                 products: {
-                    create: invoice.products.map(product => {
-                        return {
-                            baseProductId: product.baseProductId,
-                            name: product.name,
-                            price: product.price,
-                            tax: product.tax,
-                            description: product.description || ''
-                        }
+                    connect: invoice.products.map(product => {
+                        return { id: product.id } // Remplacez 'id' par le nom de la clé primaire de vos produits
                     })
                 }
             },
@@ -106,14 +100,8 @@ export class InvoiceStorage implements InvoiceStoragePort {
                 totalAmountWithTax: invoice.totalAmountWithTax,
                 customerId: invoice.customer.id,
                 products: {
-                    create: invoice.products.map(product => {
-                        return {
-                            baseProductId: product.baseProductId,
-                            name: product.name,
-                            price: product.price,
-                            tax: product.tax,
-                            description: product.description || ''
-                        }
+                    connect: invoice.products.map(product => {
+                        return { id: product.id } // Remplacez 'id' par le nom de la clé primaire de vos produits
                     })
                 }
             },

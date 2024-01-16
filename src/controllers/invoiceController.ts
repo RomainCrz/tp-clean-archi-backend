@@ -11,9 +11,9 @@ import { ListInvoiceUseCase } from '@/business/usecases/invoice/list_invoice.use
 import { FindByNumberInvoiceUseCase } from '@/business/usecases/invoice/finByNumber_invoice.usecase';
 
 export async function createInvoice(request: Request, response: Response) {
-    
-    const invoice = validate(invoiceSchema, request, response)
 
+    const invoice = validate(invoiceSchema, request, response)
+    
     if (!invoice) {
         return
     }

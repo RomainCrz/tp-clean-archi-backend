@@ -17,7 +17,7 @@ export const productWithIdSchema = productSchema.extend({
 
 export interface ProductInterface {
     id?: string
-    baseProductId: string
+    baseProductId?: string
     name: string
     price: number
     tax: number
@@ -26,7 +26,7 @@ export interface ProductInterface {
 
 export class Product {
     id?: string
-    baseProductId: string
+    baseProductId?: string
     name: string
     price: number
     tax: number

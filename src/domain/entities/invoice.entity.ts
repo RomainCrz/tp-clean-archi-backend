@@ -6,8 +6,8 @@ import { Product, productSchema } from "./product.entity"
 export const invoiceSchema = z.object({
     id: z.string().optional(),
     invoiceNumber: z.string(),
-    invoiceDate: z.date(),
-    dueDate: z.date(),
+    invoiceDate: z.coerce.date(),
+    dueDate: z.coerce.date(),
     status: z.enum(['draft', 'sent', 'paid', 'cancelled', 'overdue']),
     totalAmount: z.number(),
     totalTax: z.number(),
