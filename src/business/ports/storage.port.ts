@@ -25,5 +25,6 @@ export interface InvoiceStoragePort {
     delete(id: string): Promise<void>
     findById(id: string): Promise<Invoice | null>
     findByNumber(number: string): Promise<Invoice | null>
+    findByCustomerId(customerId: string): Promise<Invoice[]>
     list(limit: number, offset: number): Promise<Invoice[]>
 }

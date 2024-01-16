@@ -9,6 +9,7 @@ import { DeleteInvoiceUseCase } from '@/business/usecases/invoice/delete_invoice
 import { FindByIdInvoiceUseCase } from '@/business/usecases/invoice/findById_invoice.usecase';
 import { ListInvoiceUseCase } from '@/business/usecases/invoice/list_invoice.usecase';
 import { FindByNumberInvoiceUseCase } from '@/business/usecases/invoice/finByNumber_invoice.usecase';
+import { FindByCustomerId } from '@/business/usecases/invoice/findByCustomerId_invoice.usecase';
 
 export async function createInvoice(request: Request, response: Response) {
 
@@ -118,6 +119,24 @@ export async function getAllInvoices(request: Request, response: Response) {
 
     const getInvoice = new ListInvoiceUseCase(invoiceStorage, logger)
     const invoices = await getInvoice.execute({limit: 10, offset: 0})
+
+    if (!invoices) {
+        response.status(400).json({ message: 'Error getting invoices' })
+        return
+    }
+
+    response.json(invoices)
+}
+
+export async function getInvoicesByCustomerId(request: Request, response: Response) {
+    const logger = new LoggerRepository()
+    const invoiceStorage = new InvoiceStorage()
+
+
+    const getInvoice = new FindByCustomerId(invoiceStorage, logger)
+
+    console.log('customer id request')
+    const invoices = await getInvoice.execute(request.params.customerId)
 
     if (!invoices) {
         response.status(400).json({ message: 'Error getting invoices' })

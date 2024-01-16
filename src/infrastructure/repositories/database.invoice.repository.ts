@@ -164,4 +164,19 @@ export class InvoiceStorage implements InvoiceStoragePort {
 
         return invoices.map(invoice => this.toEntity(invoice))
     }
+
+    async findByCustomerId(customerId: string): Promise<Invoice[]> {
+        const invoices = await this.db.invoice.findMany({
+            where: {
+                customerId
+            },
+            include: {
+                customer: true,
+                products: true
+            }
+        })
+
+        return invoices.map(invoice => this.toEntity(invoice))
+    }
 }
+
