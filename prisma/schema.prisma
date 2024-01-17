@@ -23,7 +23,7 @@ model Invoice {
   totalAmountWithTax Float
 
   customerId String
-  customer   Customer @relation(fields: [customerId], references: [id])
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
 
   products Product[]
 }

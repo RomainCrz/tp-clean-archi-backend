@@ -63,11 +63,32 @@ export class ProductStorage implements ProductStoragePort {
     }
 
     async delete(id: string): Promise<void> {
-        await this.db.product.delete({
+        const invoice = await this.db.invoice.findFirst({
             where: {
-                id
+                products: {
+                    some: {
+                        id
+                    }
+                }
             }
         })
+
+        if (invoice) {
+            await this.db.product.update({
+                where: {
+                    id
+                },
+                data: {
+                    active: false
+                }
+            })
+        } else {
+            await this.db.product.delete({
+                where: {
+                    id
+                }
+            })
+        }
     }
 
     async findById(id: string): Promise<Product | null> {

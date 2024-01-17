@@ -47,7 +47,8 @@ export class InvoiceStorage implements InvoiceStoragePort {
                     name: product.name,
                     price: product.price,
                     tax: product.tax,
-                    description: product.description
+                    description: product.description,
+                    active: product.active,
                 }
             })
         })
@@ -69,7 +70,7 @@ export class InvoiceStorage implements InvoiceStoragePort {
                 customerId: invoice.customer.id,
                 products: {
                     connect: invoice.products.map(product => {
-                        return { id: product.id } // Remplacez 'id' par le nom de la clé primaire de vos produits
+                        return { id: product.id }
                     })
                 }
             },
