@@ -17,7 +17,8 @@ export class ProductStorage implements ProductStoragePort {
             name: product.name,
             price: product.price,
             tax: product.tax,
-            description: product.description
+            description: product.description,
+            active: product.active
         })
     }
 
@@ -28,7 +29,8 @@ export class ProductStorage implements ProductStoragePort {
                 name: product.name,
                 price: product.price,
                 tax: product.tax,
-                description: product.description
+                description: product.description,
+                active: true
             }
         })
 
@@ -36,16 +38,24 @@ export class ProductStorage implements ProductStoragePort {
     }
 
     async update(product: Product): Promise<Product> {
-        const updatedProduct = await this.db.product.update({
+        console.log('product', product)
+        await this.db.product.update({
             where: {
                 id: product.id
             },
+            data: {
+                active: false,
+            }
+        })
+
+        const updatedProduct = await this.db.product.create({
             data: {
                 baseProductId: product.baseProductId,
                 name: product.name,
                 price: product.price,
                 tax: product.tax,
-                description: product.description || ''
+                description: product.description,
+                active: true
             }
         })
 
@@ -63,7 +73,8 @@ export class ProductStorage implements ProductStoragePort {
     async findById(id: string): Promise<Product | null> {
         const product = await this.db.product.findUnique({
             where: {
-                id
+                id,
+                active: true
             }
         })
 
@@ -75,7 +86,8 @@ export class ProductStorage implements ProductStoragePort {
     async findByName(name: string): Promise<Product[]> {
         const products = await this.db.product.findMany({
             where: {
-                name
+                name,
+                active: true
             }
         })
 
@@ -85,7 +97,10 @@ export class ProductStorage implements ProductStoragePort {
     async list(limit: number, offset: number): Promise<Product[]> {
         const products = await this.db.product.findMany({
             take: limit,
-            skip: offset
+            skip: offset,
+            where: {
+                active: true
+            }
         })
 
         return products.map((product) => this.toEntity(product))

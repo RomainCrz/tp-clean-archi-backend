@@ -52,6 +52,7 @@ model Product {
   price         Float
   tax           Float
   description   String
+  active        Boolean   @default(true)
   invoices      Invoice[]
 }
 

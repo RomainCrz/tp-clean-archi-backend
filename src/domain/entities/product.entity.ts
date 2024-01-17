@@ -6,7 +6,8 @@ export const productSchema = z.object({
     name: z.string(),
     price: z.number(),
     tax: z.number(),
-    description: z.string()
+    description: z.string(),
+    active: z.boolean()
 })
 
 export const productWithIdSchema = productSchema.extend({
@@ -17,20 +18,22 @@ export const productWithIdSchema = productSchema.extend({
 
 export interface ProductInterface {
     id?: string
-    baseProductId?: string
+    baseProductId: string
     name: string
     price: number
     tax: number
     description: string
+    active: boolean
 }
 
 export class Product {
     id?: string
-    baseProductId?: string
+    baseProductId: string
     name: string
     price: number
     tax: number
     description: string
+    active: boolean
 
     constructor(parameters: ProductInterface) {
         this.id = parameters.id
@@ -39,5 +42,6 @@ export class Product {
         this.price = parameters.price
         this.tax = parameters.tax
         this.description = parameters.description
+        this.active = parameters.active
     }
 }
